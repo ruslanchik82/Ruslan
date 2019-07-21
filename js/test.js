@@ -2,7 +2,7 @@ $(document).ready(function (){
 	
 	$("#show_content").hide();
 	
-	$("#select_region").load("php/select_region.php",function(){
+	$("#select_region").load("app/models/select_region.php",function(){
 		$("#show_content").show(200);
 		$(".chosen_0").chosen();
 		$("#loader").hide(200);
@@ -27,7 +27,7 @@ $(document).ready(function (){
 	  {
 			$.ajax({
 				type: "POST",
-				url: "php/select_special.php",
+				url: "app/models/select_special.php",
 				data: { special_region:region }
 
 				}).done(function(response) {
@@ -49,7 +49,7 @@ $(document).ready(function (){
 	  {
 			$.ajax({
 				type: "POST",
-				url: "php/select_city.php",
+				url: "app/models/select_city.php",
 				data: { region:region }
 
 				}).done(function(response) {
@@ -84,7 +84,7 @@ $(document).ready(function (){
 	   
 		$.ajax({
 			type: "POST",
-			url: "php/select_district.php",
+			url: "app/models/select_district.php",
 			data: { region:region, city:city }
 
 			}).done(function(response) {
