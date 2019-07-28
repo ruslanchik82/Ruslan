@@ -3,7 +3,11 @@
 	require_once '../components/db_connection.php';
 	
 	class DbAction extends DbConnection
-	{		
+	{	
+		function __construct()
+		{
+			$this->chooseAction();
+		}
 		public function selectRegion()
 		{
 			$sql ="SELECT ter_address, ter_id, reg_id FROM t_koatuu_tree WHERE reg_id IN (SELECT DISTINCT reg_id FROM t_koatuu_tree) GROUP BY reg_id HAVING COUNT(reg_id) > 1";
@@ -146,6 +150,29 @@
 				}
 				echo "</tr>
 					 </table>";
+			}
+		}
+		public function chooseAction()
+		{
+			if($_POST['action'] == "region")
+			{
+				$this->selectRegion();
+			}
+			else if($_POST['action'] == "city")
+			{
+				$this->selectCity();
+			}
+			else if($_POST['action'] == "special")
+			{
+				$this->selectSpecial();
+			}
+			else if($_POST['action'] == "district")
+			{
+				$this->selectDistrict();
+			}
+			else if($_POST['action'] == "register")
+			{
+				$this->registerData();
 			}
 		}
 	}
