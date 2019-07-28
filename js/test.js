@@ -2,7 +2,7 @@ $(document).ready(function (){
 	
 	$("#show_content").hide();
 	
-	$("#select_region").load("app/models/db_select_action.php", { action:"region" }, function(){
+	$("#select_region").load("app/models/db_action_init.php", { action:"region" }, function(){
 		$("#show_content").show(200);
 		$(".chosen_0").chosen();
 		$("#loader").hide(200);
@@ -32,7 +32,7 @@ $(document).ready(function (){
 			
 			$.ajax({
 				type: "POST",
-				url: "app/models/db_select_action.php",
+				url: "app/models/db_action_init.php",
 				data: { special_region:region, action:"special" }
 
 				}).done(function(response) {
@@ -56,7 +56,7 @@ $(document).ready(function (){
 			
 			$.ajax({
 				type: "POST",
-				url: "app/models/db_select_action.php",
+				url: "app/models/db_action_init.php",
 				data: { region:region, action:"city" }
 
 				}).done(function(response) {
@@ -90,7 +90,7 @@ $(document).ready(function (){
 	   
 		$.ajax({
 			type: "POST",
-			url: "app/models/db_select_action.php",
+			url: "app/models/db_action_init.php",
 			data: { city:city, action:"district" }
 
 			}).done(function(response) {
@@ -154,14 +154,11 @@ $(document).ready(function (){
 		{
 			var post_url = $(this).attr("action");
 			var request_method = $(this).attr("method");
-			var form_data = new FormData(this);
+			
 			$.ajax({
 				type: request_method,
 				url : post_url,
-				data : form_data,
-				contentType: false,
-				cache: false,
-				processData:false
+				data : { name:name, email:email, select_region:region, select_city:city, select_district:district, action:"register" }
 				
 			}).done(function(response){ 
 				$("#server-results").html(response);
