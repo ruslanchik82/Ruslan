@@ -15,7 +15,6 @@
 			if ($dbConnection === false) 
 			{
 				die($dbConnection->connect_error);
-				return $dbConnection->connect_error;
 			}
 			else
 			{
