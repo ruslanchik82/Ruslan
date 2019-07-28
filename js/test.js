@@ -2,10 +2,12 @@ $(document).ready(function (){
 	
 	$("#show_content").hide();
 	
-	$("#select_region").load("app/models/select_region.php",function(){
+	$("#select_region").load("app/models/db_select_action.php", { action:"region" }, function(){
 		$("#show_content").show(200);
 		$(".chosen_0").chosen();
 		$("#loader").hide(200);
+		$("#intro_text").delay(400).slideDown(400);
+		$("#intro_text").delay(8400).slideUp(200);
 	});
 	
 	$("input").keypress(function (event) {
@@ -21,20 +23,23 @@ $(document).ready(function (){
 	  $(".chosen_1, .chosen_2").chosen("destroy");
 	  $("#registration_button").css({"pointer-events":"none"});
 	  
-	  var region = $(this).val();
+	  var region_value = $(this).val();
+	  var region_split = region_value.split(",");
 	  
-	  if(region == 80 || region == 85)
+	  if(region_split[0] == 80 || region_split[0] == 85)
 	  {
+		    var region = region_split[1];
+			
 			$.ajax({
 				type: "POST",
-				url: "app/models/select_special.php",
-				data: { special_region:region }
+				url: "app/models/db_select_action.php",
+				data: { special_region:region, action:"special" }
 
 				}).done(function(response) {
 					$("#select_district").html(response);
 					$("#registration_button").css({"pointer-events":"all"});
 					
-					if(response.trim() == "<option value='none'></option>")
+					if(response == "empty")
 					{
 						$("#li_select_district").hide(200);
 					}
@@ -47,16 +52,18 @@ $(document).ready(function (){
 	  }
 	  else
 	  {
+			var region = region_split[0];
+			
 			$.ajax({
 				type: "POST",
-				url: "app/models/select_city.php",
-				data: { region:region }
+				url: "app/models/db_select_action.php",
+				data: { region:region, action:"city" }
 
 				}).done(function(response) {
 					$("#select_city").html(response);
 					$("#registration_button").css({"pointer-events":"all"});
 					
-					if(response.trim() == "<option value='none'></option>")
+					if(response == "empty")
 					{
 						$("#li_select_city").hide(200);
 					}
@@ -80,18 +87,17 @@ $(document).ready(function (){
 	$("#registration_button").css({"pointer-events":"none"});
 	  
      var city = $(this).val();
-	 var region = $("#select_region").val();
 	   
 		$.ajax({
 			type: "POST",
-			url: "app/models/select_district.php",
-			data: { region:region, city:city }
+			url: "app/models/db_select_action.php",
+			data: { city:city, action:"district" }
 
 			}).done(function(response) {
 				$("#select_district").html(response);
 				$("#registration_button").css({"pointer-events":"all"});
 				
-				if(response.trim() == "<option value='none'></option>")
+				if(response == "empty")
 				{
 					$("#li_select_district").hide(200);
 				}
