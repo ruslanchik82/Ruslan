@@ -6,7 +6,26 @@
 	{	
 		function __construct()
 		{
-			$this->chooseAction();
+			if($_POST['action'] == "region")
+			{
+				$this->selectRegion();
+			}
+			else if($_POST['action'] == "city")
+			{
+				$this->selectCity();
+			}
+			else if($_POST['action'] == "district")
+			{
+				$this->selectDistrict();
+			}
+			else if($_POST['action'] == "special")
+			{
+				$this->selectSpecial();
+			}
+			else if($_POST['action'] == "register")
+			{
+				$this->registerData();
+			}
 		}
 		public function selectRegion()
 		{
@@ -150,29 +169,6 @@
 				}
 				echo "</tr>
 					 </table>";
-			}
-		}
-		public function chooseAction()
-		{
-			if($_POST['action'] == "region")
-			{
-				$this->selectRegion();
-			}
-			else if($_POST['action'] == "city")
-			{
-				$this->selectCity();
-			}
-			else if($_POST['action'] == "special")
-			{
-				$this->selectSpecial();
-			}
-			else if($_POST['action'] == "district")
-			{
-				$this->selectDistrict();
-			}
-			else if($_POST['action'] == "register")
-			{
-				$this->registerData();
 			}
 		}
 	}
