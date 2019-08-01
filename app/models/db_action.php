@@ -29,7 +29,7 @@
 		}
 		public function selectRegion()
 		{
-			$sql ="SELECT ter_address, ter_id, reg_id FROM t_koatuu_tree WHERE reg_id IN (SELECT DISTINCT reg_id FROM t_koatuu_tree) GROUP BY reg_id HAVING COUNT(reg_id) > 1";
+			$sql ="SELECT ter_address, ter_id, reg_id FROM t_koatuu_tree GROUP BY reg_id HAVING COUNT(reg_id) > 1";
 			$query = parent::dbConnection()->query($sql);
 
 			echo "<option value='none'></option>";
